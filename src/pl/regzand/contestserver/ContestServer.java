@@ -8,18 +8,25 @@ import java.util.List;
 
 public class ContestServer extends Thread {
 	
-	final int port;
-	boolean accepting = true;
-	ServerSocket serverSocket;
-	List<Client> clients;
-	CommandsHandler cmdHandler;
+	protected final int port;
+	protected boolean accepting = true;
+	protected ServerSocket serverSocket;
+	protected List<Client> clients;
+	protected CommandsHandler cmdHandler;
 
+	/**
+	 * Create new ContestServer
+	 * @param port - listening port
+	 */
 	public ContestServer(int port){
 		this.port = port;
 		this.clients = new ArrayList<Client>();
 		this.cmdHandler = new CommandsHandler(this);
 	}
-	
+
+	/**
+	 * Run server thread - starts contest server
+	 */
 	public void run() {
 		
 		// creating socket
@@ -46,28 +53,51 @@ public class ContestServer extends Thread {
 			}
 		}
 	}
-	
+
+	/**
+	 * Cleanly closes the connection with client
+	 * @param client
+	 */
 	public void closeConnetion(Client client){
 		client.close();
 		clients.remove(client);
 	}
 
+	/**
+	 * Returns port on which the server listens
+	 * @return port
+	 */
 	public int getPort() {
 		return port;
 	}
 
+	/**
+	 * Returns whether the server accepts new connections with customers, or not
+	 */
 	public boolean isAccepting() {
 		return accepting;
 	}
 
+	/**
+	 * Set whether the server accepts new connections with customers, or not
+	 * @param accepting - boolean
+	 */
 	public void setAccepting(boolean accepting) {
 		this.accepting = accepting;
 	}
 
+	/**
+	 * Returns currently connected clients
+	 * @return List of Clients
+	 */
 	public List<Client> getClients() {
 		return clients;
 	}
-	
+
+	/**
+	 * Returns CommandHandler that handle commands on this server
+	 * @return CommandsHandler
+	 */
 	public CommandsHandler getCommandsHandler() {
 		return cmdHandler;
 	}
