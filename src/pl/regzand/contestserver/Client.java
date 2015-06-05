@@ -10,13 +10,10 @@ public class Client extends Thread {
 
 	public final ContestServer server;
 	public final Socket socket;
-	
+
 	protected PrintWriter out;
 	protected BufferedReader in;
 	protected boolean open = true;
-
-	protected boolean loggedin = false;
-	protected String username;
 
 	/**
 	 * Creates new client on specific server and socket
@@ -55,8 +52,7 @@ public class Client extends Thread {
 		}
 		
 		// closing connection
-		this.close();
-		this.server.clients.remove(this);
+		this.server.closeConnetion(this);
 	}
 
 	/**
@@ -82,38 +78,6 @@ public class Client extends Thread {
 	public void send(String text){
 		if(open)
 			out.println(text);
-	}
-
-	/**
-	 * Returns whether client is logged in, or not
-	 * @return boolean
-	 */
-	public boolean isLoggedin() {
-		return loggedin;
-	}
-
-	/**
-	 * Returns client username
-	 * @return username
-	 */
-	public String getUsername() {
-		return username;
-	}
-
-	/**
-	 * Sets whether client is logged in
-	 * @param loggedin
-	 */
-	public void setLoggedin(boolean loggedin) {
-		this.loggedin = loggedin;
-	}
-
-	/**
-	 * Sets client's username
-	 * @param username
-	 */
-	public void setUsername(String username) {
-		this.username = username;
 	}
 
 }

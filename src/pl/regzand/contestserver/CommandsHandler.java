@@ -22,12 +22,6 @@ public class CommandsHandler {
 		errors.put(101, "unknown error");
 		errors.put(102, "unknown command");
 		errors.put(103, "wrong syntax");
-
-		errors.put(110, "authorization required");
-		errors.put(111, "not enough permissions");
-		errors.put(112, "wrong username");
-		errors.put(113, "wrong password");
-		errors.put(114, "already logedin");
 	}
 
 	/**
