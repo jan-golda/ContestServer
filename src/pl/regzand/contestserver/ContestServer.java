@@ -47,12 +47,25 @@ public class ContestServer extends Thread {
 				client.start();
 				clients.add(client);
 				System.out.println("New client connected from "+client.socket.getRemoteSocketAddress().toString());
+                onClientConnect(client);
 			} catch (IOException e) {
 				System.err.println("Could not accept connection on port " + port);
 				e.printStackTrace();
 			}
 		}
 	}
+
+    /**
+     * Function executed on new client connection
+     * @param client - newly connected client
+     */
+    protected void onClientConnect(Client client){}
+
+    /**
+     * Function executed on client disconnect
+     * @param client - disconnected client
+     */
+    protected void onClientDisconnect(Client client){}
 
 	/**
 	 * Cleanly closes the connection with client
@@ -61,6 +74,7 @@ public class ContestServer extends Thread {
 	public void closeConnetion(Client client){
 		client.close();
 		clients.remove(client);
+        onClientDisconnect(client);
 	}
 
 	/**
