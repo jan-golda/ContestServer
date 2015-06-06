@@ -7,6 +7,8 @@ import java.util.List;
 
 
 public class ContestServer extends Thread {
+
+	private static int clientUID = 0;
 	
 	protected final int port;
 	protected boolean accepting = true;
@@ -22,6 +24,9 @@ public class ContestServer extends Thread {
 		this.port = port;
 		this.clients = new ArrayList<Client>();
 		this.cmdHandler = new CommandsHandler(this);
+
+		super.setName("ContestServer");
+		super.setPriority(Thread.NORM_PRIORITY-1);
 	}
 
 	/**
@@ -43,7 +48,7 @@ public class ContestServer extends Thread {
 		while(accepting){
 			try {
 				// creating new thread for this specific client
-				Client client = new Client(this, serverSocket.accept());
+				Client client = new Client(++clientUID, this, serverSocket.accept());
 				client.start();
 				clients.add(client);
 				System.out.println("New client connected from "+client.socket.getRemoteSocketAddress().toString());

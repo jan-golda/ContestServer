@@ -10,6 +10,7 @@ public class Client extends Thread {
 
 	public final ContestServer server;
 	public final Socket socket;
+	public final int UID;
 
 	protected PrintWriter out;
 	protected BufferedReader in;
@@ -20,9 +21,13 @@ public class Client extends Thread {
 	 * @param server - server that this client belongs to
 	 * @param socket - socket that this client belongs to
 	 */
-	public Client(ContestServer server, Socket socket) {
+	public Client(int UID, ContestServer server, Socket socket) {
+		this.UID = UID;
 		this.server = server;
 		this.socket = socket;
+
+		super.setName("ContestClient-"+UID);
+		super.setPriority(Thread.NORM_PRIORITY+1);
 	}
 
 	/**
