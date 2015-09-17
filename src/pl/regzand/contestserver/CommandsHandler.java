@@ -125,7 +125,7 @@ public class CommandsHandler {
 	 */
 	private void writeError(Client client, int code){
 		String msg = errors.containsKey(code) ? errors.get(code) : errors.get(101);
-		client.send("ERR "+code+" "+msg+"\n");
+		client.send("ERROR "+code+" "+msg+"\n");
 	}
 
 }
